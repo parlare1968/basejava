@@ -8,9 +8,7 @@ public class ArrayStorage {
     private int size = 0;
 
     public void clear() {
-        for (var i = 0; i < size; i++) {
-            storage[i] = null;
-        }
+        Arrays.fill(storage, null);
         size = 0;
     }
 
@@ -21,9 +19,8 @@ public class ArrayStorage {
 
     public Resume get(String uuid) {
         for (var i = 0; i < size; i++) {
-            var resume = storage[i];
-            if (resume.getUUID().equals(uuid)) {
-                return resume;
+            if (storage[i].getUuid().equals(uuid)) {
+                return storage[i];
             }
         }
         return null;
@@ -32,9 +29,10 @@ public class ArrayStorage {
     public void delete(String uuid) {
         for (var i = 0; i < size; i++) {
             var resume = storage[i];
-            if (resume.getUUID().equals(uuid)) {
+            if (resume.getUuid().equals(uuid)) {
                 System.arraycopy(storage, i + 1, storage, i, size - i - 1);
                 size--;
+                storage[size] = null;
                 return;
             }
         }

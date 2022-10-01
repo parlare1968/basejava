@@ -13,8 +13,28 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
+        if (size == storage.length) {
+            System.out.println("ERROR: array storage is completely filled");
+            return;
+        }
+        for (var i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(r.getUuid())) {
+                System.out.println("ERROR: resume with uuid = " + r.getUuid() + " is present in the database");
+                return;
+            }
+        }
         storage[size] = r;
         size++;
+    }
+
+    public void update(Resume r) {
+        for (var i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(r.getUuid())) {
+                storage[i] = r;
+                return;
+            }
+        }
+        System.out.println("ERROR: resume with uuid = " + r.getUuid() + " is missing in the database");
     }
 
     public Resume get(String uuid) {
@@ -23,19 +43,20 @@ public class ArrayStorage {
                 return storage[i];
             }
         }
+        System.out.println("ERROR: resume with uuid = " + uuid + " is missing in the database");
         return null;
     }
 
     public void delete(String uuid) {
         for (var i = 0; i < size; i++) {
-            var resume = storage[i];
-            if (resume.getUuid().equals(uuid)) {
+            if (storage[i].getUuid().equals(uuid)) {
                 System.arraycopy(storage, i + 1, storage, i, size - i - 1);
                 size--;
                 storage[size] = null;
                 return;
             }
         }
+        System.out.println("ERROR: resume with uuid = " + uuid + " is missing in the database");
     }
 
     /**

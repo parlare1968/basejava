@@ -34,30 +34,30 @@ public class ArrayStorage {
     }
 
     public void update(Resume r) {
-        int idx = getSearchKey(r.getUuid());
-        if (idx == -1) {
+        int index = getSearchKey(r.getUuid());
+        if (index == -1) {
             System.out.println("ERROR: resume with uuid = " + r.getUuid() + " is missing in the database");
         } else {
-            storage[idx] = r;
+            storage[index] = r;
         }
     }
 
     public Resume get(String uuid) {
-        int idx = getSearchKey(uuid);
-        if (idx == -1) {
+        int index = getSearchKey(uuid);
+        if (index == -1) {
             System.out.println("ERROR: resume with uuid = " + uuid + " is missing in the database");
             return null;
         } else {
-            return storage[idx];
+            return storage[index];
         }
     }
 
     public void delete(String uuid) {
-        int idx = getSearchKey(uuid);
-        if (idx == -1) {
+        int index = getSearchKey(uuid);
+        if (index == -1) {
             System.out.println("ERROR: resume with uuid = " + uuid + " is missing in the database");
         } else {
-            System.arraycopy(storage, idx + 1, storage, idx, size - idx - 1);
+            System.arraycopy(storage, index + 1, storage, index, size - index - 1);
             size--;
             storage[size] = null;
         }

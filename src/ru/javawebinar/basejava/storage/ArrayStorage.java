@@ -60,8 +60,4 @@ public class ArrayStorage extends AbstractArrayStorage {
     public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
     }
-
-    public int size() {
-        return size;
-    }
 }

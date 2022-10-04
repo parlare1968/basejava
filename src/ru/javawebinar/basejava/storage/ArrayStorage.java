@@ -1,14 +1,15 @@
+package ru.javawebinar.basejava.storage;
+
+import ru.javawebinar.basejava.model.Resume;
+
 import java.util.Arrays;
 
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
-    private final int STORAGE_LIMIT = 10000;
-    private final Resume[] storage = new Resume[STORAGE_LIMIT];
-    private int size = 0;
+public class ArrayStorage extends AbstractArrayStorage {
 
-    private int getSearchKey(String uuid) {
+    protected int getSearchKey(String uuid) {
         for (var i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;
@@ -39,16 +40,6 @@ public class ArrayStorage {
             System.out.println("ERROR: resume with uuid = " + r.getUuid() + " is missing in the database");
         } else {
             storage[index] = r;
-        }
-    }
-
-    public Resume get(String uuid) {
-        int index = getSearchKey(uuid);
-        if (index == -1) {
-            System.out.println("ERROR: resume with uuid = " + uuid + " is missing in the database");
-            return null;
-        } else {
-            return storage[index];
         }
     }
 

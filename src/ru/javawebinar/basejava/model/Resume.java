@@ -1,6 +1,5 @@
-/**
- * Initial resume class
- */
+package ru.javawebinar.basejava.model;
+
 public class Resume {
 
     // Unique identifier

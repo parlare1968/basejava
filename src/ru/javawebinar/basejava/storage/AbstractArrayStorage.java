@@ -13,7 +13,7 @@ public abstract class AbstractArrayStorage implements Storage {
         return size;
     }
 
-    public Resume get(String uuid) {
+    public final Resume get(String uuid) {
         int index = getSearchKey(uuid);
         if (index < 0) {
             System.out.println("ERROR: resume with uuid = " + uuid + " is missing in the database");
@@ -27,7 +27,7 @@ public abstract class AbstractArrayStorage implements Storage {
         size = 0;
     }
 
-    public void update(Resume r) {
+    public final void update(Resume r) {
         int index = getSearchKey(r.getUuid());
         if (index < 0) {
             System.out.println("ERROR: resume with uuid = " + r.getUuid() + " is missing in the database");
@@ -36,7 +36,7 @@ public abstract class AbstractArrayStorage implements Storage {
         }
     }
 
-    public void delete(String uuid) {
+    public final void delete(String uuid) {
         int index = getSearchKey(uuid);
         if (index < 0) {
             System.out.println("ERROR: resume with uuid = " + uuid + " is missing in the database");

@@ -8,32 +8,21 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected int getSearchKey(String uuid) {
-        Resume searchKey = new Resume(uuid);
-        return Arrays.binarySearch(storage, 0, size, searchKey);
-    }
-
-    @Override
-    public void clear() {
-
+        return Arrays.binarySearch(storage, 0, size, new Resume(uuid));
     }
 
     @Override
     public void save(Resume r) {
-
-    }
-
-    @Override
-    public void update(Resume r) {
-
-    }
-
-    @Override
-    public void delete(String uuid) {
-
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return new Resume[0];
+        int searchKey = getSearchKey(r.getUuid());
+        if (size == storage.length) {
+            System.out.println("ERROR: array storage is completely filled");
+        } else if (searchKey >= 0) {
+            System.out.println("ERROR: resume with uuid = " + r.getUuid() + " is present in the database");
+        } else {
+            int index = Math.abs(searchKey) - 1;
+            System.arraycopy(storage, index, storage, index + 1, size - index);
+            storage[index] = r;
+            size++;
+        }
     }
 }

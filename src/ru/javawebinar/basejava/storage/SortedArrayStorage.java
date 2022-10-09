@@ -12,17 +12,14 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    public void save(Resume r) {
-        int searchKey = getSearchKey(r.getUuid());
-        if (size == storage.length) {
-            System.out.println("ERROR: array storage is completely filled");
-        } else if (searchKey >= 0) {
-            System.out.println("ERROR: resume with uuid = " + r.getUuid() + " is present in the database");
-        } else {
-            int index = Math.abs(searchKey) - 1;
-            System.arraycopy(storage, index, storage, index + 1, size - index);
-            storage[index] = r;
-            size++;
-        }
+    protected void shiftElementsWhenDeleting(int deletedElementIndex) {
+        System.arraycopy(storage, deletedElementIndex + 1, storage, deletedElementIndex, size - deletedElementIndex - 1);
+    }
+
+    @Override
+    protected void insertElementWhenSaving(Resume savingElement, int searchKey) {
+        int index = Math.abs(searchKey) - 1;
+        System.arraycopy(storage, index, storage, index + 1, size - index);
+        storage[index] = savingElement;
     }
 }

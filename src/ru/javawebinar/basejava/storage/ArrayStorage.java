@@ -18,14 +18,12 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    public void save(Resume r) {
-        if (size == storage.length) {
-            System.out.println("ERROR: array storage is completely filled");
-        } else if (getSearchKey(r.getUuid()) != -1) {
-            System.out.println("ERROR: resume with uuid = " + r.getUuid() + " is present in the database");
-        } else {
-            storage[size] = r;
-            size++;
-        }
+    protected void shiftElementsWhenDeleting(int deletedElementIndex) {
+        storage[deletedElementIndex] = storage[size - 1];
+    }
+
+    @Override
+    protected void insertElementWhenSaving(Resume savingElement, int searchKey) {
+        storage[size] = savingElement;
     }
 }

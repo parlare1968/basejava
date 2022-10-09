@@ -9,22 +9,21 @@ public abstract class AbstractArrayStorage implements Storage {
     protected final Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
-    public int size() {
-        return size;
-    }
-
-    public final Resume get(String uuid) {
-        int index = getSearchKey(uuid);
-        if (index < 0) {
-            System.out.println("ERROR: resume with uuid = " + uuid + " is missing in the database");
-            return null;
-        }
-        return storage[index];
-    }
-
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
+    }
+
+    public final void save(Resume r) {
+        int searchKey = getSearchKey(r.getUuid());
+        if (size == STORAGE_LIMIT) {
+            System.out.println("ERROR: array storage is completely filled");
+        } else if (searchKey >= 0) {
+            System.out.println("ERROR: resume with uuid = " + r.getUuid() + " is present in the database");
+        } else {
+            insertElementWhenSaving(r,searchKey);
+            size++;
+        }
     }
 
     public final void update(Resume r) {
@@ -36,14 +35,23 @@ public abstract class AbstractArrayStorage implements Storage {
         }
     }
 
+    public final Resume get(String uuid) {
+        int index = getSearchKey(uuid);
+        if (index < 0) {
+            System.out.println("ERROR: resume with uuid = " + uuid + " is missing in the database");
+            return null;
+        }
+        return storage[index];
+    }
+
     public final void delete(String uuid) {
         int index = getSearchKey(uuid);
         if (index < 0) {
             System.out.println("ERROR: resume with uuid = " + uuid + " is missing in the database");
         } else {
-            System.arraycopy(storage, index + 1, storage, index, size - index - 1);
+            shiftElementsWhenDeleting(index);
+            storage[size - 1] = null;
             size--;
-            storage[size] = null;
         }
     }
 
@@ -54,5 +62,13 @@ public abstract class AbstractArrayStorage implements Storage {
         return Arrays.copyOf(storage, size);
     }
 
+    public int size() {
+        return size;
+    }
+
     protected abstract int getSearchKey(String uuid);
+
+    protected abstract void shiftElementsWhenDeleting(int deletedElementIndex);
+
+    protected abstract void insertElementWhenSaving(Resume savingElement, int searchKey);
 }

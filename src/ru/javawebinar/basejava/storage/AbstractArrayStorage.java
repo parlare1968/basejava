@@ -21,7 +21,7 @@ public abstract class AbstractArrayStorage implements Storage {
         } else if (searchKey >= 0) {
             System.out.println("ERROR: resume with uuid = " + r.getUuid() + " is present in the database");
         } else {
-            insertElementWhenSaving(r,searchKey);
+            insertResume(r,searchKey);
             size++;
         }
     }
@@ -49,7 +49,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index < 0) {
             System.out.println("ERROR: resume with uuid = " + uuid + " is missing in the database");
         } else {
-            shiftElementsWhenDeleting(index);
+            removeResume(index);
             storage[size - 1] = null;
             size--;
         }
@@ -68,7 +68,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     protected abstract int getSearchKey(String uuid);
 
-    protected abstract void shiftElementsWhenDeleting(int deletedElementIndex);
+    protected abstract void removeResume(int deletedElementIndex);
 
-    protected abstract void insertElementWhenSaving(Resume savingElement, int searchKey);
+    protected abstract void insertResume(Resume savingElement, int searchKey);
 }

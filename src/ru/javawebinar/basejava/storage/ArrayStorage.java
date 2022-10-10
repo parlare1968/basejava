@@ -18,12 +18,12 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void shiftElementsWhenDeleting(int deletedElementIndex) {
+    protected void removeResume(int deletedElementIndex) {
         storage[deletedElementIndex] = storage[size - 1];
     }
 
     @Override
-    protected void insertElementWhenSaving(Resume savingElement, int searchKey) {
+    protected void insertResume(Resume savingElement, int searchKey) {
         storage[size] = savingElement;
     }
 }

@@ -1,5 +1,8 @@
 package ru.javawebinar.basejava.storage;
 
+import ru.javawebinar.basejava.exception.ExistStorageException;
+import ru.javawebinar.basejava.exception.NotExistStorageException;
+import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
@@ -17,9 +20,9 @@ public abstract class AbstractArrayStorage implements Storage {
     public final void save(Resume r) {
         int searchKey = getSearchKey(r.getUuid());
         if (size == STORAGE_LIMIT) {
-            System.out.println("ERROR: array storage is completely filled");
+            throw new StorageException("Array storage is completely filled", r.getUuid());
         } else if (searchKey >= 0) {
-            System.out.println("ERROR: resume with uuid = " + r.getUuid() + " is present in the database");
+            throw new ExistStorageException(r.getUuid());
         } else {
             insertResume(r,searchKey);
             size++;
@@ -29,7 +32,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public final void update(Resume r) {
         int index = getSearchKey(r.getUuid());
         if (index < 0) {
-            System.out.println("ERROR: resume with uuid = " + r.getUuid() + " is missing in the database");
+            throw new NotExistStorageException(r.getUuid());
         } else {
             storage[index] = r;
         }
@@ -38,8 +41,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public final Resume get(String uuid) {
         int index = getSearchKey(uuid);
         if (index < 0) {
-            System.out.println("ERROR: resume with uuid = " + uuid + " is missing in the database");
-            return null;
+            throw new NotExistStorageException(uuid);
         }
         return storage[index];
     }
@@ -47,7 +49,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public final void delete(String uuid) {
         int index = getSearchKey(uuid);
         if (index < 0) {
-            System.out.println("ERROR: resume with uuid = " + uuid + " is missing in the database");
+            throw new NotExistStorageException(uuid);
         } else {
             removeResume(index);
             storage[size - 1] = null;

@@ -31,7 +31,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveResume(Resume r, int searchKey) {
+    protected final void saveResume(Resume r, int searchKey) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Array storage is completely filled", r.getUuid());
         } else {
@@ -51,7 +51,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteResume(int searchKey) {
+    protected final void deleteResume(int searchKey) {
         removeResume(searchKey);
         storage[size - 1] = null;
         size--;

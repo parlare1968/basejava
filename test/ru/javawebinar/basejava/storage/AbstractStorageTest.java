@@ -8,7 +8,7 @@ import ru.javawebinar.basejava.model.Resume;
 
 import static org.junit.Assert.*;
 
-public abstract class AbstractArrayStorageTest {
+public abstract class AbstractStorageTest {
     protected final Storage storage;
 
     public static final String UUID_NOT_EXIST = "dummy";
@@ -25,7 +25,7 @@ public abstract class AbstractArrayStorageTest {
 
     public static final Resume RESUME_TO_SAVE = new Resume();
 
-    protected AbstractArrayStorageTest(Storage storage) {
+    protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
 

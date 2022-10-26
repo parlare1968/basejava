@@ -9,13 +9,15 @@ public class ListStorage extends AbstractStorage {
     List<Resume> storage = new ArrayList<>();
 
     @Override
+    protected boolean isExist(Object searchKey) {
+        return (int) searchKey >= 0;
+    }
+
+    @Override
     public void clear() {
         storage.clear();
     }
 
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
     @Override
     public Resume[] getAll() {
         return storage.toArray(new Resume[0]);
@@ -27,7 +29,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected int getSearchKey(String uuid) {
+    protected Object getSearchKey(String uuid) {
         for (int i = 0; i < storage.size(); i++) {
             if (storage.get(i).getUuid().equals(uuid)) {
                 return i;
@@ -37,22 +39,22 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveResume(Resume r, int searchKey) {
+    protected void doSave(Resume r, Object searchKey) {
         storage.add(r);
     }
 
     @Override
-    protected void updateResume(Resume r, int searchKey) {
-        storage.set(searchKey, r);
+    protected void doUpdate(Resume r, Object searchKey) {
+        storage.set((int) searchKey, r);
     }
 
     @Override
-    protected Resume getResume(int searchKey) {
-        return storage.get(searchKey);
+    protected Resume doGet(Object searchKey) {
+        return storage.get((int) searchKey);
     }
 
     @Override
-    protected void deleteResume(int searchKey) {
-        storage.remove(searchKey);
+    protected void doDelete(Object searchKey) {
+        storage.remove((int) searchKey);
     }
 }

@@ -11,15 +11,21 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected final Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
+    protected abstract void removeResume(int deletedElementIndex);
+
+    protected abstract void insertResume(Resume savingElement, int searchKey);
+
+    @Override
+    protected boolean isExist(Object searchKey) {
+        return (int) searchKey >= 0;
+    }
+
     @Override
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
     @Override
     public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
@@ -31,33 +37,29 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected final void saveResume(Resume r, int searchKey) {
+    protected final void doSave(Resume r, Object searchKey) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Array storage is completely filled", r.getUuid());
         } else {
-            insertResume(r,searchKey);
+            insertResume(r, (int) searchKey);
             size++;
         }
     }
 
     @Override
-    protected void updateResume(Resume r, int searchKey) {
-        storage[searchKey] = r;
+    protected void doUpdate(Resume r, Object searchKey) {
+        storage[(int) searchKey] = r;
     }
 
     @Override
-    protected Resume getResume(int searchKey) {
-        return storage[searchKey];
+    protected Resume doGet(Object searchKey) {
+        return storage[(int) searchKey];
     }
 
     @Override
-    protected final void deleteResume(int searchKey) {
-        removeResume(searchKey);
+    protected final void doDelete(Object searchKey) {
+        removeResume((int) searchKey);
         storage[size - 1] = null;
         size--;
     }
-
-    protected abstract void removeResume(int deletedElementIndex);
-
-    protected abstract void insertResume(Resume savingElement, int searchKey);
 }

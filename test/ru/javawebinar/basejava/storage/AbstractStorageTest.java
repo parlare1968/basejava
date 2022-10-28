@@ -6,6 +6,8 @@ import org.junit.Test;
 import ru.javawebinar.basejava.exception.*;
 import ru.javawebinar.basejava.model.Resume;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public abstract class AbstractStorageTest {
@@ -107,8 +109,12 @@ public abstract class AbstractStorageTest {
     @Test
     public void getAll() {
         Resume[] expected = {RESUME_1, RESUME_2, RESUME_3};
+        List<Resume> expectedList = List.of(expected);
         Resume[] actual = storage.getAll();
-        assertArrayEquals(expected, actual);
+        List<Resume> actualList = List.of(actual);
+        assertTrue((expectedList.size() == actualList.size()) &&
+                expectedList.containsAll(actualList) &&
+                actualList.containsAll(expectedList));
     }
 
     @Test

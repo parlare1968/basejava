@@ -9,18 +9,8 @@ public class ListStorage extends AbstractStorage {
     private final List<Resume> storage = new ArrayList<>();
 
     @Override
-    protected boolean isExist(Object searchKey) {
-        return (int) searchKey >= 0;
-    }
-
-    @Override
     public void clear() {
         storage.clear();
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return storage.toArray(new Resume[0]);
     }
 
     @Override
@@ -56,5 +46,15 @@ public class ListStorage extends AbstractStorage {
     @Override
     protected void doDelete(Object searchKey) {
         storage.remove((int) searchKey);
+    }
+
+    @Override
+    protected boolean isExist(Object searchKey) {
+        return (int) searchKey >= 0;
+    }
+
+    @Override
+    protected List<Resume> copyToList() {
+        return new ArrayList<>(storage);
     }
 }

@@ -9,6 +9,7 @@ import ru.javawebinar.basejava.model.Resume;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.junit.Assume.*;
 
 public abstract class AbstractStorageTest {
     protected final Storage storage;
@@ -59,6 +60,7 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = StorageException.class)
     public void saveOverflow() {
+        assumeTrue(storage instanceof AbstractArrayStorage);
         storage.clear();
         try {
             for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {

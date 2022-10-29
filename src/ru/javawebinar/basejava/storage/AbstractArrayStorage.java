@@ -4,6 +4,7 @@ import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10000;
@@ -16,19 +17,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected abstract void insertResume(Resume savingElement, int searchKey);
 
     @Override
-    protected boolean isExist(Object searchKey) {
-        return (int) searchKey >= 0;
-    }
-
-    @Override
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
     }
 
     @Override
@@ -61,5 +52,15 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         removeResume((int) searchKey);
         storage[size - 1] = null;
         size--;
+    }
+
+    @Override
+    protected boolean isExist(Object searchKey) {
+        return (int) searchKey >= 0;
+    }
+
+    @Override
+    protected List<Resume> copyToList() {
+        return Arrays.asList(Arrays.copyOf(storage, size));
     }
 }

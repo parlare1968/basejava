@@ -3,8 +3,8 @@ package ru.javawebinar.basejava.model;
 import java.util.Arrays;
 import java.util.List;
 
-public class ListSection extends Section {
-    List<String> list;
+public class ListSection extends AbstractSection {
+    private final List<String> list;
 
     public ListSection(List<String> list) {
         this.list = list;

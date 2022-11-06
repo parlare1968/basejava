@@ -3,8 +3,8 @@ package ru.javawebinar.basejava.model;
 import java.util.Arrays;
 import java.util.List;
 
-public class CompanySection extends Section {
-    List<Company> companies;
+public class CompanySection extends AbstractSection {
+    private final List<Company> companies;
 
     public CompanySection(Company... companies) {
         this.companies = Arrays.asList(companies);

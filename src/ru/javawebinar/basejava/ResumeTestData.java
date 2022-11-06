@@ -67,7 +67,7 @@ public class ResumeTestData {
         System.out.println("----------------------------");
         // output sections
         for (SectionType type : SectionType.values()) {
-            Section section = RESUME.getSection(type);
+            AbstractSection section = RESUME.getSection(type);
             if (section != null) {
                 System.out.println(type.getTitle());
                 System.out.println(section);

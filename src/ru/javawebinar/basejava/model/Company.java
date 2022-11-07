@@ -1,5 +1,7 @@
 package ru.javawebinar.basejava.model;
 
+import ru.javawebinar.basejava.util.DateUtil;
+
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -69,15 +71,15 @@ public class Company {
 
         public Period(String title, int startDateYear, int startDateMonth, String description) {
             this.title = title;
-            this.startDate = LocalDate.of(startDateYear, startDateMonth, 1);
+            this.startDate = DateUtil.of(startDateYear, startDateMonth);
             this.endDate = LocalDate.now();
             this.description = description;
         }
 
         public Period(String title, int startDateYear, int startDateMonth, int endDateYear, int endDateMonth, String description) {
             this.title = title;
-            this.startDate = LocalDate.of(startDateYear, startDateMonth, 1);
-            this.endDate = LocalDate.of(endDateYear, endDateMonth, 1);
+            this.startDate = DateUtil.of(startDateYear, startDateMonth);
+            this.endDate = DateUtil.of(endDateYear, endDateMonth);
             this.description = description;
         }
 

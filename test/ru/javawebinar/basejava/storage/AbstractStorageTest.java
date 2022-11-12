@@ -2,6 +2,7 @@ package ru.javawebinar.basejava.storage;
 
 import org.junit.Before;
 import org.junit.Test;
+import ru.javawebinar.basejava.ResumeTestData;
 import ru.javawebinar.basejava.exception.*;
 import ru.javawebinar.basejava.model.Resume;
 
@@ -14,18 +15,19 @@ public abstract class AbstractStorageTest {
     protected final Storage storage;
 
     public static final String UUID_NOT_EXIST = "dummy";
-    public static final Resume RESUME_NOT_EXIST = new Resume(UUID_NOT_EXIST, "notExist");
+    public static final Resume RESUME_NOT_EXIST = ResumeTestData.createResume(UUID_NOT_EXIST, "dummy");
 
     private static final String UUID_1 = "uuid1";
-    private static final Resume RESUME_1 = new Resume(UUID_1, "fullName1");
+    private static final Resume RESUME_1 = ResumeTestData.createResume(UUID_1, "fullName1");
 
     private static final String UUID_2 = "uuid2";
-    private static final Resume RESUME_2 = new Resume(UUID_2, "fullName2");
+    private static final Resume RESUME_2 = ResumeTestData.createResume(UUID_2, "fullName2");
 
     private static final String UUID_3 = "uuid3";
-    private static final Resume RESUME_3 = new Resume(UUID_3, "fullName1");
+    private static final Resume RESUME_3 = ResumeTestData.createResume(UUID_3, "fullName1");
 
-    public static final Resume RESUME_TO_SAVE = new Resume("toSave");
+    private static final String UUID_TO_SAVE = "toSave";
+    public static final Resume RESUME_TO_SAVE = ResumeTestData.createResume(UUID_TO_SAVE, "toSave");
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;

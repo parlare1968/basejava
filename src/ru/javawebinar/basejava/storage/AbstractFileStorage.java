@@ -71,8 +71,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> copyToList() {
-        File[] listFiles = directory.listFiles();
-        checkListFiles(listFiles);
+        File[] listFiles = getListFiles();
         List<Resume> list = new ArrayList<>();
         for (File file : listFiles) {
             list.add(doGet(file));
@@ -82,8 +81,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
-        File[] list = directory.listFiles();
-        checkListFiles(list);
+        File[] list = getListFiles();
         for (File file : list) {
             doDelete(file);
         }
@@ -91,14 +89,15 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public int size() {
-        String[] list = directory.list();
-        checkListFiles(list);
+        File[] list = getListFiles();
         return list.length;
     }
 
-    private void checkListFiles(Object list) {
-        if (list == null) {
+    private File[] getListFiles() {
+        File[] listFiles = directory.listFiles();
+        if (listFiles == null) {
             throw new StorageException("I/O Error", null);
         }
+        return listFiles;
     }
 }

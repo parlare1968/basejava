@@ -32,18 +32,18 @@ public class MainFile {
         // рекурсивный обход и вывод имени файлов в каталогах и подкаталогах
         File root = new File(".");
         System.out.println("------------------");
-        recursiveTraversal(root);
+        recursiveTraversal(root, "");
     }
 
-    public static void recursiveTraversal(File current) {
-        System.out.println(current.getAbsoluteFile());
+    public static void recursiveTraversal(File current, String offset) {
+        System.out.println(offset + current.getAbsoluteFile());
         if (!current.isDirectory()) {
             return;
         }
         File[] innerFileList = current.listFiles();
         if (innerFileList != null) {
             for (File file : innerFileList) {
-                recursiveTraversal(file);
+                recursiveTraversal(file, offset + " ");
             }
         }
     }

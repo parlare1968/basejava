@@ -100,7 +100,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     private void checkListFiles(Object list) {
         if (list == null) {
-            throw new StorageException("Directory read error", null);
+            throw new StorageException("I/O Error", null);
         }
     }
 }

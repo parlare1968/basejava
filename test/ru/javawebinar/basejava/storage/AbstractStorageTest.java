@@ -6,12 +6,14 @@ import ru.javawebinar.basejava.ResumeTestData;
 import ru.javawebinar.basejava.exception.*;
 import ru.javawebinar.basejava.model.Resume;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 public abstract class AbstractStorageTest {
+    protected static final File STORAGE_DIR = new File("C:\\Users\\adedo\\IdeaProjects\\basejava\\storage");
     protected final Storage storage;
 
     public static final String UUID_NOT_EXIST = "dummy";
@@ -116,6 +118,6 @@ public abstract class AbstractStorageTest {
     }
 
     private void assertSameResume(Resume expected) {
-        assertSame(expected, storage.get(expected.getUuid()));
+        assertEquals(expected, storage.get(expected.getUuid()));
     }
 }

@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     private final Path directory;
@@ -74,33 +75,29 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     @Override
     protected List<Resume> copyToList() {
         List<Resume> list = new ArrayList<>();
-        try {
-            Files.list(directory).forEach(path -> list.add(doGet(path)));
-            return list;
-        } catch (IOException e) {
-            throw new StorageException("I/O Error", null, e);
-        }
+        getPathStream().forEach(path -> list.add(doGet(path)));
+        return list;
     }
 
     @Override
     public void clear() {
-        try {
-            Files.list(directory).forEach(this::doDelete);
-        } catch (IOException e) {
-            throw new StorageException("I/O Error", null, e);
-        }
+        getPathStream().forEach(this::doDelete);
     }
 
     @Override
     public int size() {
-        try {
-            return (int) Files.list(directory).count();
-        } catch (IOException e) {
-            throw new StorageException("I/O Error", null, e);
-        }
+        return (int) getPathStream().count();
     }
 
     private String getFileName(Path path) {
         return path.getFileName().toString();
+    }
+
+    private Stream<Path> getPathStream() {
+        try {
+            return Files.list(directory);
+        } catch (IOException e) {
+            throw new StorageException("I/O Error", null, e);
+        }
     }
 }

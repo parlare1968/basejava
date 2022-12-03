@@ -79,7 +79,7 @@ public class DataStreamSerializer implements Serializer {
         }
     }
 
-    private <T> void writeCollection(DataOutputStream dos, Collection<T> collection, Writer<T> writer) throws IOException {
+    private <T> void writeCollection(DataOutputStream dos, Collection<T> collection, ResumeDataWriter<T> writer) throws IOException {
         dos.writeInt(collection.size());
         for (T item : collection) {
             writer.write(item);
@@ -94,7 +94,7 @@ public class DataStreamSerializer implements Serializer {
         dos.writeUTF(ld.toString());
     }
 
-    private void readCollection(DataInputStream dis, Reader reader) throws IOException {
+    private void readCollection(DataInputStream dis, ResumeDataReader reader) throws IOException {
         int size = dis.readInt();
         for (int i = 0; i < size; i++) {
             reader.read();

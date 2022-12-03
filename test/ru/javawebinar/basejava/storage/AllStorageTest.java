@@ -2,7 +2,6 @@ package ru.javawebinar.basejava.storage;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import ru.javawebinar.basejava.storage.serializer.JsonStreamSerializer;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
@@ -14,7 +13,8 @@ import ru.javawebinar.basejava.storage.serializer.JsonStreamSerializer;
         ObjectStreamFileStorageTest.class,
         ObjectStreamPathStorageTest.class,
         XmlPathStorageTest.class,
-        JsonStreamSerializer.class
+        JsonPathStorageTest.class,
+        DataPathStorageTest.class
 })
 public class AllStorageTest {
 }

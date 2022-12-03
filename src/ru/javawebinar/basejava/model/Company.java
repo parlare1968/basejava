@@ -23,6 +23,12 @@ public class Company implements Serializable {
     public Company() {
     }
 
+    public Company(String name, String website, List<Period> periods) {
+        this.name = name;
+        this.website = website;
+        this.periods = periods;
+    }
+
     public Company(String name, String website, Period... periods) {
         this.name = name;
         this.website = website;
@@ -80,6 +86,13 @@ public class Company implements Serializable {
         String description;
 
         public Period() {
+        }
+
+        public Period(String title, LocalDate startDate, LocalDate endDate, String description) {
+            this.title = title;
+            this.startDate = startDate;
+            this.endDate = endDate;
+            this.description = description;
         }
 
         public Period(String title, int startDateYear, int startDateMonth, String description) {

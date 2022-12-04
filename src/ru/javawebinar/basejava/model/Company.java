@@ -10,6 +10,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Company implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -24,15 +26,14 @@ public class Company implements Serializable {
     }
 
     public Company(String name, String website, List<Period> periods) {
+        Objects.requireNonNull(name, "name must not be null");
         this.name = name;
         this.website = website;
         this.periods = periods;
     }
 
     public Company(String name, String website, Period... periods) {
-        this.name = name;
-        this.website = website;
-        this.periods = Arrays.asList(periods);
+        this(name, website, Arrays.asList(periods));
     }
 
     public String getName() {
@@ -51,20 +52,13 @@ public class Company implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Company company = (Company) o;
-
-        if (!name.equals(company.name)) return false;
-        if (!website.equals(company.website)) return false;
-        return periods.equals(company.periods);
+        return name.equals(company.name) && Objects.equals(website, company.website) && periods.equals(company.periods);
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + website.hashCode();
-        result = 31 * result + periods.hashCode();
-        return result;
+        return Objects.hash(name, website, periods);
     }
 
     @Override
@@ -75,6 +69,7 @@ public class Company implements Serializable {
                 ", periods=" + periods +
                 '}';
     }
+
     @XmlAccessorType(XmlAccessType.FIELD)
     public static class Period implements Serializable {
         String title;
@@ -89,6 +84,9 @@ public class Company implements Serializable {
         }
 
         public Period(String title, LocalDate startDate, LocalDate endDate, String description) {
+            Objects.requireNonNull(title, "title must not be null");
+            Objects.requireNonNull(startDate, "startDate must not be null");
+            Objects.requireNonNull(endDate, "endDate must not be null");
             this.title = title;
             this.startDate = startDate;
             this.endDate = endDate;
@@ -96,17 +94,11 @@ public class Company implements Serializable {
         }
 
         public Period(String title, int startDateYear, int startDateMonth, String description) {
-            this.title = title;
-            this.startDate = DateUtil.of(startDateYear, startDateMonth);
-            this.endDate = LocalDate.now();
-            this.description = description;
+            this(title, DateUtil.of(startDateYear, startDateMonth), LocalDate.now(), description);
         }
 
         public Period(String title, int startDateYear, int startDateMonth, int endDateYear, int endDateMonth, String description) {
-            this.title = title;
-            this.startDate = DateUtil.of(startDateYear, startDateMonth);
-            this.endDate = DateUtil.of(endDateYear, endDateMonth);
-            this.description = description;
+            this(title, DateUtil.of(startDateYear, startDateMonth), DateUtil.of(endDateYear, endDateMonth), description);
         }
 
         public String getTitle() {
@@ -129,22 +121,13 @@ public class Company implements Serializable {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-
             Period period = (Period) o;
-
-            if (!title.equals(period.title)) return false;
-            if (!startDate.equals(period.startDate)) return false;
-            if (!endDate.equals(period.endDate)) return false;
-            return description.equals(period.description);
+            return title.equals(period.title) && startDate.equals(period.startDate) && endDate.equals(period.endDate) && Objects.equals(description, period.description);
         }
 
         @Override
         public int hashCode() {
-            int result = title.hashCode();
-            result = 31 * result + startDate.hashCode();
-            result = 31 * result + endDate.hashCode();
-            result = 31 * result + description.hashCode();
-            return result;
+            return Objects.hash(title, startDate, endDate, description);
         }
 
         @Override

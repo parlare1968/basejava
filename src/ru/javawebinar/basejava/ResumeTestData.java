@@ -47,9 +47,9 @@ public class ResumeTestData {
         resume.addSection(SectionType.QUALIFICATIONS, new ListSection("Qualification1", "Qualification2"));
         resume.addSection(SectionType.EXPERIENCE, new CompanySection(
                 new Company("Company1", "Website1",
-                        new Company.Period("Position11", 2015, 2, 2017, 4, "Description11"),
+                        new Company.Period("Position11", 2015, 2, 2017, 4, null),
                         new Company.Period("Position12", 2017, 4, "Description12")),
-                new Company("Company2", "Website1",
+                new Company("Company2", null,
                         new Company.Period("Position2", 2010, 9, 2015, 2, "Description2"))
         ));
         resume.addSection(SectionType.EDUCATION, new CompanySection(

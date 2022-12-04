@@ -87,7 +87,7 @@ public class DataStreamSerializer implements Serializer {
     }
 
     private void writeText(DataOutputStream dos, String text) throws IOException {
-        dos.writeUTF(text);
+        dos.writeUTF(text != null ? text : "");
     }
 
     private void writeLocalDate(DataOutputStream dos, LocalDate ld) throws IOException {
@@ -102,7 +102,8 @@ public class DataStreamSerializer implements Serializer {
     }
 
     private String readText(DataInputStream dis) throws IOException {
-        return dis.readUTF();
+        String text = dis.readUTF();
+        return text.equals("") ? null : text;
     }
 
     private LocalDate readLocalDate(DataInputStream dis) throws IOException {

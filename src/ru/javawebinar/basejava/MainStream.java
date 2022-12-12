@@ -29,7 +29,7 @@ public class MainStream {
         // 3) Сумма четного количества нечетных чисел четно
         // 4) Сумма нечетного количества нечетных чисел нечетна
         Map<Boolean, List<Integer>> map = integers.stream().collect(Collectors.partitioningBy(n -> n % 2 == 0));
-        // true - массив четных чисел (сумма четна)
+        // true - массив четных чисел (сумма четная)
         // false - массив нечетных чисел
         return map.get(map.get(false).size() % 2 != 0);
     }

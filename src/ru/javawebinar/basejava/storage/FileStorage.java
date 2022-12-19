@@ -97,7 +97,7 @@ public class FileStorage extends AbstractStorage<File> {
     private File[] getListFiles() {
         File[] listFiles = directory.listFiles();
         if (listFiles == null) {
-            throw new StorageException("I/O Error", null);
+            throw new StorageException("I/O Error");
         }
         return listFiles;
     }

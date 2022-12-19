@@ -33,7 +33,7 @@ public class ResumeTestData {
         } else {
             resume = new Resume(uuid, fullName);
         }
-        // add contacts
+        /*// add contacts
         resume.addContact(ContactType.CELLPHONE, "+7(921) 111-1111");
         resume.addContact(ContactType.SKYPE, "skype:fullName");
         resume.addContact(ContactType.MAIL, "fullName@mail.ru");
@@ -58,7 +58,7 @@ public class ResumeTestData {
                         new Company.Period("Title12", 2014, 2, 2014, 4, "Description12")),
                 new Company("Course2", "Website2",
                         new Company.Period("Title2", 2011, 3, 2011, 4, "Description2"))
-        ));
+        ));*/
         return resume;
     }
 }

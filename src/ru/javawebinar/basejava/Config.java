@@ -12,7 +12,6 @@ import java.util.Properties;
 public class Config {
     protected static final File PROPS = new File("config\\resumes.properties");
     private static final Config INSTANCE = new Config();
-    private final Properties props = new Properties();
     private final File storageDir;
     private final Storage storage;
 
@@ -20,6 +19,7 @@ public class Config {
 
         try (InputStream is = Files.newInputStream(PROPS.toPath())) {
             // load a properties file
+            Properties props = new Properties();
             props.load(is);
 
             storageDir = new File(props.getProperty("storage.dir"));

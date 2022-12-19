@@ -10,6 +10,7 @@ import ru.javawebinar.basejava.model.Resume;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 
@@ -17,19 +18,19 @@ public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = Config.get().getStorageDir();
     protected final Storage storage;
 
-    public static final String UUID_NOT_EXIST = "dummy";
+    public static final String UUID_NOT_EXIST = UUID.randomUUID().toString();
     public static final Resume RESUME_NOT_EXIST = ResumeTestData.createResume(UUID_NOT_EXIST, "dummy");
 
-    private static final String UUID_1 = "uuid1";
+    private static final String UUID_1 = UUID.randomUUID().toString();
     private static final Resume RESUME_1 = ResumeTestData.createResume(UUID_1, "fullName1");
 
-    private static final String UUID_2 = "uuid2";
+    private static final String UUID_2 = UUID.randomUUID().toString();
     private static final Resume RESUME_2 = ResumeTestData.createResume(UUID_2, "fullName2");
 
-    private static final String UUID_3 = "uuid3";
-    private static final Resume RESUME_3 = ResumeTestData.createResume(UUID_3, "fullName1");
+    private static final String UUID_3 = UUID.randomUUID().toString();
+    private static final Resume RESUME_3 = ResumeTestData.createResume(UUID_3, "fullName3");
 
-    private static final String UUID_TO_SAVE = "toSave";
+    private static final String UUID_TO_SAVE = UUID.randomUUID().toString();
     public static final Resume RESUME_TO_SAVE = ResumeTestData.createResume(UUID_TO_SAVE, "toSave");
 
     protected AbstractStorageTest(Storage storage) {
@@ -100,7 +101,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getAllSorted() {
-        List<Resume> expected = Arrays.asList(RESUME_1, RESUME_3, RESUME_2);
+        List<Resume> expected = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
         List<Resume> actual = storage.getAllSorted();
         assertEquals(expected, actual);
     }

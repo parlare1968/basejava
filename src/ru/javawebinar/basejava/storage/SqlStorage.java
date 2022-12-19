@@ -89,7 +89,7 @@ public class SqlStorage implements Storage {
     }
 
     private String getUuidColumn(ResultSet rs) throws SQLException {
-        return rs.getString("uuid").trim();
+        return rs.getString("uuid");
     }
 
     private String getFullNameColumn(ResultSet rs) throws SQLException {

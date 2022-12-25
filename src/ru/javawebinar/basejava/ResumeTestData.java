@@ -33,14 +33,14 @@ public class ResumeTestData {
         } else {
             resume = new Resume(uuid, fullName);
         }
-        /*// add contacts
+        // add contacts
         resume.addContact(ContactType.CELLPHONE, "+7(921) 111-1111");
         resume.addContact(ContactType.SKYPE, "skype:fullName");
         resume.addContact(ContactType.MAIL, "fullName@mail.ru");
         resume.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/fullName");
         resume.addContact(ContactType.GITHUB, "https://github.com/fullName");
         resume.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/fullName");
-        // add sections
+        /*// add sections
         resume.addSection(SectionType.OBJECTIVE, new TextSection("Objective"));
         resume.addSection(SectionType.PERSONAL, new TextSection("Personal"));
         resume.addSection(SectionType.ACHIEVEMENTS, new ListSection("Achievement1", "Achievement2"));
